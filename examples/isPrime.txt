@@ -1,0 +1,7 @@
+1) Given an Integer N
+2) if N < 0 / N = 0, Output : Provide Positive Non-Zero Integers Only !
+3) For any other value of N do the following-
+4) Count from i = 2 to N (exclusive)
+5) For each value of i check the following condition-
+6) if N is divisible by i, Output: N is not a Prime & exit the function immediately
+7) Else Output: N is a Prime 
