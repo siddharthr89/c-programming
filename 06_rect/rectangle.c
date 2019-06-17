@@ -2,30 +2,117 @@
 #include <stdlib.h>
 //I've provided "min" and "max" functions in
 //case they are useful to you
-int min (int a, int b) {
-  if (a < b) {
+int min(int a, int b) {
+  if(a < b) {
     return a;
   }
   return b;
 }
-int max (int a, int b) {
-  if (a > b) {
+int max(int a, int b) {
+  if(a > b) {
     return a;
   }
   return b;
 }
 
 //Declare your rectangle structure here!
-
+struct rect_t{
+  int x;
+  int y;
+  int width;
+  int height;
+};
+typedef struct rect_t rectangle;
 
 rectangle canonicalize(rectangle r) {
   //WRITE THIS FUNCTION
+  if(r.width < 0)
+    {
+    r.x = r.x + r.width;
+    r.width = -(r.width);
+    }
+  if(r.height < 0)
+    {
+    r.y = r.y + r.height;
+    r.height = -(r.height);
+    }
   return r;
 }
-rectangle intersection(rectangle r1, rectangle r2) {
+
+rectangle intersection(rectangle r1, rectangle r2)
+{
   //WRITE THIS FUNCTION
-  return r1;
+  rectangle r;
+  
+  r1 = canonicalize(r1);
+  r2 = canonicalize(r2);
+
+  // For Rectangles that are the "Identifcal" !
+  if(r1.x == r2.x && r1.y == r2.y && r1.width == r2.width && r1.height == r2.height)
+    {
+      return r1;
+    }
+  
+  // For rectangles that are "Not Identical" !
+  r.x = max(r1.x, r2.x);
+  r.y = max(r1.y, r2.y);
+  
+  // Calculating Width
+  if(r.x == r1.x)
+    {
+      if((r2.x + r2.width) <= (r1.x + r1.width))
+	 r.width = (r2.width - (abs(r2.x) + abs(r1.x)));
+      else if((r2.x + r2.width) >= (r1.x + r1.width))
+	r.width = (r2.width - (abs(r2.x) - abs(r1.x) + ((r2.x + r2.width) - ((r1.x) + r1.width))));
+    }
+  else if(r.x == r2.x)
+    {
+      if((r1.x + r1.width) <= (r2.x + r2.width))
+	 r.width = (r1.width - (abs(r1.x) + abs(r2.x)));
+      else if((r1.x + r1.width) >= (r2.x + r2.width))
+	r.width = (r1.width - (abs(r1.x) - abs(r2.x) + ((r1.x + r1.width) - ((r2.x) + r2.width))));
+    } 
+
+  // Calculating Height
+  if(r.y == r1.y)
+    {
+      if(((r2.y + r2.height) <= (r1.y + r1.height)))
+	 r.height = (r2.height - (abs(r2.y) + abs(r1.y)));
+      else if(((r2.y + r2.height) >= (r1.y + r1.height)))
+	r.height = (r2.height - (abs(r2.y) - abs(r1.y) + ((r2.y + r2.height) - ((r1.y) + r1.height))));
+    }
+
+  else if(r.y == r2.y)
+    {
+      if(((r1.y + r1.height) <= (r2.y + r2.height)))
+	 r.height = (r1.height - (abs(r1.y) + abs(r2.y)));
+      else if(((r1.y + r1.height) >= (r2.y + r2.height)))
+	r.height = (r1.height - (abs(r1.y) - abs(r2.y) + ((r1.y + r1.height) - ((r2.y) + r2.height))));
+    }
+
+  // For Rectangles that "Do Not Intersect"
+  if((r.width < 0) && (r.height < 0))
+    {
+      r.width = 0;
+      r.height = 0;
+    }
+
+  // For Rectangles that are "Tangent"
+  if(((r1.y + r1.height) == r2.y) || ((r2.y + r2.height) == r1.y))
+    {
+      r.height = 0;
+      r.width = abs(r.x) - abs((min(r1.x + r1.width, r2.x + r2.width)));
+    }
+  else if(((r1.x + r1.width) == r2.x) || ((r2.x + r2.width) == r1.x))
+    {
+      r.width = 0;
+      r.height = abs(r.y) - ((min(r1.y + r1.height, r2.y +r2.height)));
+    }
+  
+  return r;
 }
+
+
 
 //You should not need to modify any code below this line
 void printRectangle(rectangle r) {

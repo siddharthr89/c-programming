@@ -28,7 +28,7 @@ in this problem might be.
      then it should return a rectangle with
         x=1, y=2, width=2, height=4
      as these both describe the same rectangle, but the later is
-     in a canonical representation.
+     in a canonicxal representation.
  
      It may be a good idea to stop and test this function
      before proceeding.  Compile and run your code.
