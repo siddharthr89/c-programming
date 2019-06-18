@@ -42,74 +42,35 @@ rectangle canonicalize(rectangle r) {
 rectangle intersection(rectangle r1, rectangle r2)
 {
   //WRITE THIS FUNCTION
-  rectangle r;
-  
+
   r1 = canonicalize(r1);
   r2 = canonicalize(r2);
 
-  // For Rectangles that are the "Identifcal" !
+  //For Rectangles that are the "Identifcal" !
   if(r1.x == r2.x && r1.y == r2.y && r1.width == r2.width && r1.height == r2.height)
     {
       return r1;
     }
-  
-  // For rectangles that are "Not Identical" !
-  r.x = max(r1.x, r2.x);
-  r.y = max(r1.y, r2.y);
-  
-  // Calculating Width
-  if(r.x == r1.x)
-    {
-      if((r2.x + r2.width) <= (r1.x + r1.width))
-	 r.width = (r2.width - (abs(r2.x) + abs(r1.x)));
-      else if((r2.x + r2.width) >= (r1.x + r1.width))
-	r.width = (r2.width - (abs(r2.x) - abs(r1.x) + ((r2.x + r2.width) - ((r1.x) + r1.width))));
-    }
-  else if(r.x == r2.x)
-    {
-      if((r1.x + r1.width) <= (r2.x + r2.width))
-	 r.width = (r1.width - (abs(r1.x) + abs(r2.x)));
-      else if((r1.x + r1.width) >= (r2.x + r2.width))
-	r.width = (r1.width - (abs(r1.x) - abs(r2.x) + ((r1.x + r1.width) - ((r2.x) + r2.width))));
-    } 
 
-  // Calculating Height
-  if(r.y == r1.y)
-    {
-      if(((r2.y + r2.height) <= (r1.y + r1.height)))
-	 r.height = (r2.height - (abs(r2.y) + abs(r1.y)));
-      else if(((r2.y + r2.height) >= (r1.y + r1.height)))
-	r.height = (r2.height - (abs(r2.y) - abs(r1.y) + ((r2.y + r2.height) - ((r1.y) + r1.height))));
-    }
-
-  else if(r.y == r2.y)
-    {
-      if(((r1.y + r1.height) <= (r2.y + r2.height)))
-	 r.height = (r1.height - (abs(r1.y) + abs(r2.y)));
-      else if(((r1.y + r1.height) >= (r2.y + r2.height)))
-	r.height = (r1.height - (abs(r1.y) - abs(r2.y) + ((r1.y + r1.height) - ((r2.y) + r2.height))));
-    }
-
+  //Rectangles that are "Not Identical" !
+  int right = min(r1.x + r1.width, r2.x + r2.width);
+  int top = min(r1.y + r1.height, r2.y + r2.height);
+  r1.x = max(r1.x, r2.x);
+  r1.y = max(r1.y, r2.y);
+  r1.width = right - r1.x;
+  r1.height = top - r1.y;
+     
   // For Rectangles that "Do Not Intersect"
-  if((r.width < 0) && (r.height < 0))
+  if((r1.width < 0) || (r1.height < 0))
     {
-      r.width = 0;
-      r.height = 0;
-    }
-
-  // For Rectangles that are "Tangent"
-  if(((r1.y + r1.height) == r2.y) || ((r2.y + r2.height) == r1.y))
-    {
-      r.height = 0;
-      r.width = abs(r.x) - abs((min(r1.x + r1.width, r2.x + r2.width)));
-    }
-  else if(((r1.x + r1.width) == r2.x) || ((r2.x + r2.width) == r1.x))
-    {
-      r.width = 0;
-      r.height = abs(r.y) - ((min(r1.y + r1.height, r2.y +r2.height)));
+      r1.width = 0;
+      r1.height = 0;
     }
   
-  return r;
+  
+  // For Rectangles that are "Tangent"
+  
+  return r1;
 }
 
 
