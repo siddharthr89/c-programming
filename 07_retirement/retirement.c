@@ -40,17 +40,17 @@ double total_balance_when_working_retired(double initial, int startAge, retire_i
 
 
 //retirement function
-void retirement(int startAge, double initial, retire_info w, retire_info r)
+void retirement(int startAge, double initial, retire_info working, retire_info retired)
 {
   //Function call when working
-  initial = total_balance_when_working_retired(initial, startAge, w);
-  startAge = (startAge + w.months);
+  initial = total_balance_when_working_retired(initial, startAge, working);
+  startAge = (startAge + working.months);
   //Function call when retired
-  total_balance_when_working_retired(initial, startAge, r);
+  total_balance_when_working_retired(initial, startAge, retired);
 }
 
 //Main Function
-int main()
+int main(void)
 {
   retire_info working;
   retire_info retired;
