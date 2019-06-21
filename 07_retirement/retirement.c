@@ -2,12 +2,12 @@
 #include<stdlib.h>
 
 //Define Struct
-struct retire_info{
+struct _retire_info{
   int months;
   double contribution;
   double rate_of_return;
 };
-typedef struct retire_info myaccount;
+typedef struct _retire_info retire_info;
 
 
 //Interest Function per month
@@ -18,7 +18,7 @@ double interest(double initial, double r_o_r)
 }
 
 //Print balance every month Function
-double total_balance_when_working_retired(double initial, int startAge, myaccount b)
+double total_balance_when_working_retired(double initial, int startAge, retire_info b)
 {
   int x, y;
   double z = 0;
@@ -40,7 +40,7 @@ double total_balance_when_working_retired(double initial, int startAge, myaccoun
 
 
 //retirement function
-void retirement(int startAge, double initial, myaccount w, myaccount r)
+void retirement(int startAge, double initial, retire_info w, retire_info r)
 {
   //Function call when working
   initial = total_balance_when_working_retired(initial, startAge, w);
@@ -52,8 +52,8 @@ void retirement(int startAge, double initial, myaccount w, myaccount r)
 //Main Function
 int main()
 {
-  myaccount working;
-  myaccount retired;
+  retire_info working;
+  retire_info retired;
 
 //working variable data of type struct myaccount: Months, Contribution in $, ROR per year
   working.months = 489;
