@@ -11,15 +11,15 @@ void assert_card_valid(card_t c) {
 
 const char * ranking_to_string(hand_ranking_t r) {
   switch(r){
-  case STRAIGHT_FLUSH: printf("STRAIGHT_FLUSH\n"); return "STRAIGHT_FLUSH";
-  case FOUR_OF_A_KIND: printf("FOUR_OF_A_KIND\n"); return "FOUR_OF_A_KIND";
-  case FULL_HOUSE: printf("FULL_HOUSE\n"); return "FULL_HOUSE";
-  case FLUSH: printf("FLUSH\n"); return "FLUSH";
-  case STRAIGHT: printf("STRAIGHT\n"); return "STRAIGHT";
-  case THREE_OF_A_KIND: printf("THREE_OF_A_KIND\n"); return "THREE_OF_A_KIND";
-  case TWO_PAIR: printf("TWO_PAIR\n"); return "TWO_PAIR";
-  case PAIR: printf("PAIR\n"); return "PAIR";
-  default: printf("NOTHING\n"); return "NOTHING";
+  case STRAIGHT_FLUSH: return "STRAIGHT_FLUSH";
+  case FOUR_OF_A_KIND: return "FOUR_OF_A_KIND";
+  case FULL_HOUSE: return "FULL_HOUSE";
+  case FLUSH: return "FLUSH";
+  case STRAIGHT: return "STRAIGHT";
+  case THREE_OF_A_KIND: return "THREE_OF_A_KIND";
+  case TWO_PAIR: return "TWO_PAIR";
+  case PAIR: return "PAIR";
+  default: return "NOTHING";
   }
 }
 
@@ -34,30 +34,24 @@ char value_letter(card_t c) {
 
   if ((c.value >= 2) && (c.value <= 9)){
     z = '0' + c.value;
-    printf("%c", z);
-  return z;
+    return z;
   }
   
   else if (c.value == 10){
     z = '0';
-    printf("%c", z);
-  }
+    }
   else if (c.value == VALUE_JACK){
     z = 'J';
-    printf("%c", z);
-  }
+    }
   else if (c.value == VALUE_QUEEN){
     z = 'Q';
-    printf("%c", z);
-  }
+    }
   else if (c.value == VALUE_KING){
     z = 'K';
-    printf("%c", z);
-  }
+    }
   else if (c.value == VALUE_ACE){
     z = 'A';
-    printf("%c", z);
-  }
+    }
     return z;
 }
 
@@ -70,11 +64,11 @@ char suit_letter(card_t c) {
   }
   
   switch(c.suit){
-  case SPADES: printf("s\n"); return 's';
-  case HEARTS: printf("h\n"); return 'h';
-  case DIAMONDS: printf("d\n"); return 'd';
-  case CLUBS: printf("c\n"); return 'c';
-  default: printf("X\n"); return 'X';
+  case SPADES: return 's';
+  case HEARTS: return 'h';
+  case DIAMONDS: return 'd';
+  case CLUBS: return 'c';
+  default: return 'X';
       }
 }
 
@@ -85,7 +79,7 @@ void print_card(card_t c) {
   value = value_letter(c);
   suit = suit_letter(c);
 
-  printf("%c%c\n", value, suit);
+  printf("%c%c", value, suit);
 }
 
 
@@ -121,8 +115,6 @@ card_t card_from_letters(char value_let, char suit_let) {
   case 'c': temp.suit = CLUBS; break;
   }
 
-  printf("temp.value = %d, temp.suit = %d\n", temp.value, temp.suit);
-  
   return temp;
 }
 
@@ -211,6 +203,5 @@ card_t card_from_num(unsigned c) {
     }
     }
 
-  printf("temp.value = %d, temp.suit = %d\n", temp.value, temp.suit); 
   return temp;
 }
